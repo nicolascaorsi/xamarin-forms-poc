@@ -1,4 +1,12 @@
-﻿Este repositório contém o código inicial para uma prova de conceito, de uma arquiteutura, que visa solucionar de forma evetiva aplicações orientadas a fluxo de dados, utilizando programação reativa.
+﻿Este repositório contém o código inicial para uma prova de conceito, de uma arquiteutura, que visa solucionar de forma efetiva aplicações orientadas a fluxo de dados, utilizando um modelo reativo.
+
+# Funcionalidades
+* Carregamento de lista de mensagens
+* Armazenamento offline
+* Pull to refresh
+* Listagem 'infinita'
+* Visualizacao de mensagem
+* Mensagens já lidas ficam com indentificador cinza.
 
 # Tech Stack
 * [Xamarin Forms]
@@ -9,14 +17,6 @@
 * [macOS]
 * [XCode]
 * [Visual Studio for Mac]
-
-# Funcionalidades
-* Carregamento de lista de mensagens
-* Armazenamento offline
-* Pull to refresh
-* Listagem 'infinita'
-* Visualizacao de mensagem
-* Mensagens já lidas ficam com indentificador cinza.
 
 # Executando a aplicação
 1. Abrir a solução src/MyApp.sln.
@@ -30,14 +30,14 @@
 ## src/Company.Modules.Message
  Modulo do Prism, contendo toda a lógica de leitura de mensagens (análogo a emails
  
-### src/Company.Modules.Message/Database
+#### src/Company.Modules.Message/Database
 
 Contém os modelos das entidades que são persistidas na base de dados.
 
-### src/Company.Modules.Message/UseCases
+#### src/Company.Modules.Message/UseCases
 São os casos de uso propriamente dito, como a possibilidade de realizar download de mensagens, obtenção e listagem. Cada usecase é responsável por somente uma única tarefa. As funcionalidades de download estão implementadas através de mocks.
 
-### src/Company.Modules.Message/UI
+#### src/Company.Modules.Message/UI
 Contém o código relacionado a telas, como view models e arquivos de interface. Estão separados de acordo com cada funcionalidade.
 
 ## src/Company.MyApp
