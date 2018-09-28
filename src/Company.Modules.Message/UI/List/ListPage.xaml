@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Company.Modules.Message.UI.Views;assembly=Company.Modules.Message"
+    xmlns:behaviors="clr-namespace:NarcForms.Behaviors;assembly=NarcForms.Behaviors"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="Company.Modules.Message.UI.Views.ListPage"
+    xmlns:viewModels="clr-namespace:Company.Modules.Message.UI.ViewModels;assembly=Company.Modules.Message"
+    Title="{Binding Title}">
+    <!--BindingContext="{Binding Source={x:Static viewModels:MainPageViewModel_Design.Instance}}"-->
+
+    <ContentPage.Content>
+        <!--<AbsoluteLayout>-->
+            <!--Image Source="">
+                <<Image.Source>
+                    <OnPlatform x:TypeArguments="x:String" x:Key="DefaultBackground" Default="default_background.jpg">
+                        <On Platform="Android" Value="default_background.webp"/>
+                    </OnPlatform>
+                </Image.Source>
+            </Image-->
+            <!--<Image
+                Source="default_background.jpg"
+                Aspect="AspectFill" />-->
+            <ListView
+                ItemsSource="{Binding Messages}"
+                x:Name="ConversationsListView"
+                HasUnevenRows="false"
+                RowHeight="88"
+                CachingStrategy="RecycleElement"
+                Margin="0"
+                BackgroundColor="Transparent"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsLoadingLatest}"
+                RefreshCommand="{Binding LoadLatestCommand}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListView.Behaviors>
+                    <behaviors:InfiniteScrollBehavior
+                        x:Name="ConversationsListViewInfiniteScrollBehavior"
+                        LoadMoreCommand="{Binding LoadOlderCommand}"/>
+                    <b:EventToCommandBehavior
+                        Command="{Binding ItemTappedCommand}"
+                        EventName="ItemTapped"
+                        EventArgsParameterPath="Item" />
+            </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:TwoLinesCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <ActivityIndicator
+                        IsVisible="{Binding IsLoadingOlder}"
+                        IsRunning="{Binding IsLoadingOlder}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </ListView.Footer>
+            </ListView>
+        <!--</AbsoluteLayout>-->
+    </ContentPage.Content>
+</ContentPage>

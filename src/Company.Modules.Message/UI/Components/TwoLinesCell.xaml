@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    x:Class="Company.Modules.Message.UI.Views.TwoLinesCell"
+    Height="88">
+    <FlexLayout
+        Direction="Row"
+        BackgroundColor="White">
+        <Frame
+            Padding="0,2,0,2"
+            FlexLayout.Basis="8"
+            BackgroundColor="{Binding ., Converter={StaticResource colorConverter}}"
+            HasShadow="false"
+            CornerRadius="0" />
+        <ffimageloading:CachedImage
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="48"
+            HeightRequest="48"
+            Margin="16,16,0,0"
+            DownsampleToViewSize="true"
+            LoadingPlaceholder="Default.png"
+            Source="{Binding From.Avatar}">
+            <ffimageloading:CachedImage.Transformations>
+                <fftransformations:CircleTransformation />
+            </ffimageloading:CachedImage.Transformations>
+        </ffimageloading:CachedImage>
+        <FlexLayout
+            Direction="Column"
+            FlexLayout.Grow="1"
+            Padding="16"
+            Margin="0,0,16,16"
+            CompressedLayout.IsHeadless="true">
+            <Label
+                Text="{Binding From.Name}"
+                TextColor="#212121"
+                FontSize="16"
+                LineBreakMode="TailTruncation" />
+            <Label
+                Text="{Binding Subject}"
+                Margin="0,2,0,0"
+                FontSize="14"
+                FontAttributes="Bold"
+                TextColor="#666666"
+                LineBreakMode="TailTruncation" />
+            <Label
+                Text="{Binding Body}"
+                Margin="0,4,16,8"
+                FontSize="14"
+                TextColor="#666666"
+                LineBreakMode="TailTruncation" />
+        </FlexLayout>
+    </FlexLayout>
+</ViewCell>

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\netstandard2.0\netstandard2.0</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\netstandard2.0\netstandard2.0</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.0.0.396" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.5.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\TwoLinesViewCell.cs" />
+    <Compile Remove="Messages\UseCases\RetrieveMessagesUC %28copy%29.cs" />
+    <Compile Remove="Chats\Models.cs" />
+    <Compile Remove="Views\MainMenu.xaml.cs" />
+    <Compile Remove="ViewModels\MainPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Messages\UI\.DS_Store" />
+    <None Remove="loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--<BundleResource Include="loading.png" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Company.Modules.Message\Company.Modules.Message.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\MainPage.xaml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\Company.Modules.Message\bin\Debug\netstandard2.0</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\Company.Modules.Message\bin\Release\netstandard2.0</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.3.840" />
+    <PackageReference Include="AutoBogus" Version="2.1.2" />
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.0.0.396" />
+    <PackageReference Include="Realm.Database" Version="3.2.0" />
+    <PackageReference Include="Refit" Version="4.6.30" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.5.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UseCases\GetMessage\" />
+    <Folder Include="UseCases\DownloadNewMessages\" />
+    <Folder Include="UseCases\GetRecentMessages\" />
+    <Folder Include="UseCases\DownloadOlderMessages\" />
+    <Folder Include="UI\Components\" />
+    <Folder Include="UI\Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Api\IMessagesApi.cs" />
+    <Compile Remove="Api\ListMessagesResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NarcForms.Behaviors\NarcForms.Behaviors.csproj" />
+  </ItemGroup>
+</Project>
