@@ -10,6 +10,14 @@
 * [XCode]
 * [Visual Studio for Mac]
 
+# Funcionalidades
+* Carregamento de lista de mensagens
+* Armazenamento offline
+* Pull to refresh
+* Listagem 'infinita'
+* Visualizacao de mensagem
+* Mensagens já lidas ficam com indentificador cinza.
+
 # Executando a aplicação
 1. Abrir a solução src/MyApp.sln.
 2. Restaurar os pacotes da solução
