@@ -12,10 +12,11 @@
 
 # Executando a aplicação
 1. Abrir a solução src/MyApp.sln.
-2. Selecionar o projeto Company.MyApp.iOS como padrão
-3. Selecionar o modo de Debug
-4. Selecionar um simulador ou dispositivo físico (iPhone)
-5. Executar o projeto (botão :arrow_forward:)
+2. Restaurar os pacotes da solução
+3. Selecionar o projeto Company.MyApp.iOS como padrão
+4. Selecionar o modo de Debug
+5. Selecionar um simulador ou dispositivo físico (iPhone)
+6. Executar o projeto (botão :arrow_forward:)
 
 # Separação, arquitetura e conceitos.
 ## src/Company.Modules.Message
@@ -39,6 +40,26 @@ Aplicação Xamarin Forms iOS, responsável por executar o app.
 
 ## src/NarcForms.Behaviors
 Projeto que contém os behaviors utilizados pelo projeto. Futuramente será movido para um pacote [NuGet].
+
+# ToDo
+* Adicionar a camada de API
+* Adicionar testes unitários
+* Adicioanr testes de interface
+* Separar a responsabilidade da Model, para que ela não seja responsável tanto pela persistencia, como pela interação com UI
+* Adicionar suporte a outras plataformas (Android, MacOS, Windows)
+* Criar um loader para quando não houverem dados
+
+
+
+
+
+
+
+
+
+
+
+
    
    [NuGet]: <https://nuget.org>
    [Xcode]: <https://developer.apple.com/xcode/>
@@ -48,12 +69,3 @@ Projeto que contém os behaviors utilizados pelo projeto. Futuramente será movi
    [Realm]: <https://realm.io/docs/dotnet/latest/>
    [Xamarin Forms]: <https://docs.microsoft.com/pt-br/xamarin/xamarin-forms/>
    [macOS]: <https://www.apple.com/br/macos/>
-
-
-# ToDo
-* Adicionar a camada de API
-* Adicionar testes unitários
-* Adicioanr testes de interface
-* Separar a responsabilidade da Model, para que ela não seja responsável tanto pela persistencia, como pela interação com UI
-* Adicionar suporte a outras plataformas (Android, MacOS, Windows)
-* Criar um loader para quando não houverem dados
