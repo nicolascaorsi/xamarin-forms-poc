@@ -6,6 +6,6 @@ namespace Company.Modules.Message.UI.ViewModels
     {
         string Title { get; }
         Database.Message SelectedItem { get; }
-        ObservableCollection<Database.Message> Messages { get; }
+        ReadOnlyObservableCollection<Database.Message> Messages { get; }
     }
 }

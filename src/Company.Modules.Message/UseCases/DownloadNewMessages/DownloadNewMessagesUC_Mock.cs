@@ -14,13 +14,12 @@ namespace Company.Modules.Message.UseCases
 
         public async Task ExecuteAsync()
         {
-            Console.WriteLine($"[{Tag}] Called {nameof(ExecuteAsync)}");
-
             try
             {
                 await Task.Run(async () =>
                 {
-                    await Task.Delay(new Faker().Random.Int(1000, 10000));
+                    // Fakes IO delay
+                    await Task.Delay(new Faker().Random.Int(1000, 3000));
                     await Realm.GetInstance().WriteAsync((r) =>
                     {
                         try

@@ -16,9 +16,6 @@ namespace Company.Modules.Message.UI.Detail
         public DetailPageViewModel(INavigationService navigationService, IGetMessageUC getMessageUC) :base(navigationService)
         {
             this.getMessageUC = getMessageUC;
-            PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
-                Console.WriteLine("Changed" + e.PropertyName);
-            };
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)

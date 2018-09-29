@@ -13,8 +13,6 @@ namespace Company.Modules.Message.UseCases
 
         public async Task ExecuteAsync()
         {
-            Console.WriteLine($"[{Tag}] Called {nameof(ExecuteAsync)}");
-
             try
             {
                 await Realm.GetInstance().WriteAsync((r) =>
@@ -43,7 +41,6 @@ namespace Company.Modules.Message.UseCases
                             userFaker.Generate(new Faker().Random.Int(1, 20)).ForEach(message.To.Add);
                             r.Add(message);
                         }
-                        Console.WriteLine($"[{Tag}] Called {nameof(ExecuteAsync)} inserted all");
                     }
                     catch (Exception e)
                     {
@@ -55,7 +52,6 @@ namespace Company.Modules.Message.UseCases
             {
                 Console.WriteLine(e);
             }
-            Console.WriteLine($"[{Tag}] Called {nameof(ExecuteAsync)} finished");
         }
     }
 }

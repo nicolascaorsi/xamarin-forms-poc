@@ -28,6 +28,8 @@
     <Folder Include="UseCases\DownloadOlderMessages\" />
     <Folder Include="UI\Components\" />
     <Folder Include="UI\Converters\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Extensions\Realm\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Api\IMessagesApi.cs" />

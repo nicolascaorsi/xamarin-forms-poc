@@ -7,6 +7,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Company.Modules.Message.Database;
 using Company.Modules.Message.UseCases;
+using System.Collections.Generic;
 
 namespace Company.Modules.Message.UI.ViewModels
 {
@@ -15,7 +16,7 @@ namespace Company.Modules.Message.UI.ViewModels
         readonly IDownloadOlderMessagesUC downloadOlderUC;
         readonly IDownloadNewMessagesUC downloadNewMessagesUC;
 
-        public ObservableCollection<Database.Message> Messages { get;  set; }
+        public ReadOnlyObservableCollection<Database.Message> Messages { get;  set; }
 
         public ICommand LoadLatestCommand => new DelegateCommand(async () => await OnLoadLatestAsync(), () => !IsLoadingLatest);
 
@@ -34,11 +35,7 @@ namespace Company.Modules.Message.UI.ViewModels
                                  IGetRecentMessagesUC getRecentMessagesUC,
                                  INavigationService navigationService) : base(navigationService)
         {
-            PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
-                Console.WriteLine($"{e.PropertyName} changed");
-            };
             Title = "Messages";
-
             this.downloadOlderUC = downloadOlderUC;
             this.downloadNewMessagesUC = downloadNewMessagesUC;
             Messages = getRecentMessagesUC.Execute();
@@ -47,15 +44,27 @@ namespace Company.Modules.Message.UI.ViewModels
         async Task OnLoadLatestAsync()
         {
             IsLoadingLatest = true;
-            await downloadNewMessagesUC.ExecuteAsync();
-            IsLoadingLatest = false;
+            try
+            {
+                await downloadNewMessagesUC.ExecuteAsync();
+            }
+            finally
+            {
+                IsLoadingLatest = false;
+            }
         }
 
         async Task OnLoadOlderAsync()
         {
             IsLoadingOlder = true;
-            await downloadOlderUC.ExecuteAsync();
-            IsLoadingOlder = false;
+            try
+            {
+                await downloadOlderUC.ExecuteAsync();
+            }
+            finally
+            {
+                IsLoadingOlder = false;
+            }
         }
 
         async void ItemTapped(Database.Message message)

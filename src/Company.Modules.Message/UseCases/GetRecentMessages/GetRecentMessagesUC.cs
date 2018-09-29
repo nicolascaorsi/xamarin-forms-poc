@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.ObjectModel;
 using Realms;
-using Company.Modules.Message.Database;
-using System.Threading.Tasks;
 
 namespace Company.Modules.Message.UseCases
 {
-    public class GetMessageUC : IGetMessageUC
+    public class GetMessageUC : IGetMessageUC, IDisposable
     {
-        const string Tag = nameof(GetMessageUC);
-
-        public GetMessageUC()
-        {
-        }
+        readonly Realm realm = Realm.GetInstance();
 
         public Database.Message Execute(string primaryKey)
         {
-            Console.WriteLine($"[{Tag}] Called {nameof(Execute)}");
-
-            var realm = Realm.GetInstance();
             var message = realm.Find<Database.Message>(primaryKey);
+            MarkAsRead(message);
+            return message;
+        }
+
+        public void Dispose() => realm?.Dispose();
+
+        void MarkAsRead(Database.Message message)
+        {
             if (!message.ReadAt.HasValue)
             {
                 realm.Write(() => message.ReadAt = DateTimeOffset.UtcNow);
             }
-            return message;
         }
     }
 }

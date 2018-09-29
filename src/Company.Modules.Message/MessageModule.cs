@@ -12,10 +12,7 @@ namespace Company.Modules.Message
         public static string ListPageUri = MainPageUri;
         public static string DetailPageUri = $"{nameof(MessageModule)}.{nameof(DetailPage)}";
 
-        public void OnInitialized(IContainerProvider containerProvider)
-        {
-
-        }
+        public void OnInitialized(IContainerProvider containerProvider) { }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {

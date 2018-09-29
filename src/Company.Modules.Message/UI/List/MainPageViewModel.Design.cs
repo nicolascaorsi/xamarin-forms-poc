@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bogus;
 using Company.Modules.Message.Database;
@@ -25,18 +26,18 @@ namespace Company.Modules.Message.UI.ViewModels
                 .RuleFor(m => m.IsFavorite, f => f.Random.Bool())
                 .RuleFor(m => m.From, (m) => userFaker.Generate());
 
-            var messages = messageFaker.Generate(20);
+            var messages = new ObservableCollection<Database.Message>(messageFaker.Generate(20));
             foreach (var message in messages)
             {
                 userFaker.Generate(new Faker().Database.Random.Int(1, 20)).ForEach(message.To.Add);
             }
 
-            Messages = new ObservableCollection<Database.Message>(messages);
+            Messages = new ReadOnlyObservableCollection<Database.Message>(messages);
         }
 
         public string Title { get; set; } = "Conversations";
 
-        public ObservableCollection<Database.Message> Messages { get; set; }
+        public ReadOnlyObservableCollection<Database.Message> Messages { get; set; }
 
         public Database.Message SelectedItem => throw new NotImplementedException();
     }
