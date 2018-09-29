@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 using System.Collections.Generic;
 using Company.Modules.Message.Extensions;
+using Company.Modules.Message.Database;
 
 namespace Company.Modules.Message.UseCases
 {
@@ -13,6 +14,7 @@ namespace Company.Modules.Message.UseCases
     {
         readonly IDownloadNewMessagesUC downloadRecentUC;
         readonly IDisposable messageSubscription;
+        readonly ReadOnlyObservableCollection<Database.Message> readOnlyMessages;
         readonly ObservableCollection<Database.Message> messages;
 
         public GetRecentMessagesUC(IDownloadNewMessagesUC downloadRecentUC)
@@ -23,12 +25,13 @@ namespace Company.Modules.Message.UseCases
                 .All<Database.Message>()
                 .OrderByDescending(m => m.SendAt)
                 .SubscribeForNotificationsOn(messages);
+            this.readOnlyMessages = messages.ToReadOnly();
         }
 
         public ReadOnlyObservableCollection<Database.Message> Execute()
         {
             StartDownloadRecentMessages();
-            return messages.ToReadOnly();
+            return readOnlyMessages;
         }
 
         private void StartDownloadRecentMessages()
