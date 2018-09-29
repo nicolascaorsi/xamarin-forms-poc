@@ -1,27 +1,41 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.ObjectModel;
 using Realms;
+using System.Threading.Tasks;
+using Xamarin.Forms.Internals;
+using System.Collections.Generic;
+using Company.Modules.Message.Extensions;
 
 namespace Company.Modules.Message.UseCases
 {
-    public class GetMessageUC : IGetMessageUC, IDisposable
+    public class GetRecentMessagesUC : IGetRecentMessagesUC, IDisposable
     {
-        readonly Realm realm = Realm.GetInstance();
+        readonly IDownloadNewMessagesUC downloadRecentUC;
+        readonly IDisposable messageSubscription;
+        readonly ObservableCollection<Database.Message> messages;
 
-        public Database.Message Execute(string primaryKey)
+        public GetRecentMessagesUC(IDownloadNewMessagesUC downloadRecentUC)
         {
-            var message = realm.Find<Database.Message>(primaryKey);
-            MarkAsRead(message);
-            return message;
+            this.downloadRecentUC = downloadRecentUC;
+            this.messages = new ObservableCollection<Database.Message>();
+            this.messageSubscription = Realm.GetInstance()
+                .All<Database.Message>()
+                .OrderByDescending(m => m.SendAt)
+                .SubscribeForNotificationsOn(messages);
         }
 
-        public void Dispose() => realm?.Dispose();
-
-        void MarkAsRead(Database.Message message)
+        public ReadOnlyObservableCollection<Database.Message> Execute()
         {
-            if (!message.ReadAt.HasValue)
-            {
-                realm.Write(() => message.ReadAt = DateTimeOffset.UtcNow);
-            }
+            StartDownloadRecentMessages();
+            return messages.ToReadOnly();
         }
+
+        private void StartDownloadRecentMessages()
+        {
+            Task.Run(downloadRecentUC.ExecuteAsync);
+        }
+
+        public void Dispose() => messageSubscription?.Dispose();
     }
 }

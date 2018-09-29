@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bogus;
 using Company.Modules.Message.Database;
+using Company.Modules.Message.Extensions;
 
 namespace Company.Modules.Message.UI.ViewModels
 {
@@ -32,7 +33,7 @@ namespace Company.Modules.Message.UI.ViewModels
                 userFaker.Generate(new Faker().Database.Random.Int(1, 20)).ForEach(message.To.Add);
             }
 
-            Messages = new ReadOnlyObservableCollection<Database.Message>(messages);
+            Messages = messages.ToReadOnly();
         }
 
         public string Title { get; set; } = "Conversations";
